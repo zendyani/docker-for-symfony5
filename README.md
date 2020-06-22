@@ -47,12 +47,47 @@ cd fancy_new_project
 git clone git@github.com:zendyani/docker-for-symfony5.git
 ```
 
+Create .env file inside docker-for-symfony5 with the following content:
+```
+DATABASE_NAME=symfony
+DATABASE_USER=appuser
+DATABASE_PASSWORD=apppassword
+DATABASE_ROOT_PASSWORD=secret
+
+APP_ENV=dev
+APP_SECRET=24e17c47430bd2044a61c131c1cf6990
+```
+
+Those variables will be used to configure postgresql and later symfony, 
+So sont hesitate to update variables value accordingly.
+
 ## Running
 
 Run docker-compose from within "fancy_new_project/docker-for-symfony5" with the following:
 ```
 docker-compose up
 ```
+
+To confirm that your containers are running, from another terminal run the following command:
+```
+docker-compose ps
+```
+
+If the result is the listing of tree containers then congratulation you can jump to next step. 
+
+## Init Symfony project
+To do so we need to execute php composer commands or symfony command from within php-fpm container.
+We have more than one way of doing it.
+
+```
+docker-compose run php-fpm composer create-project symfony/skeleton .
+```
+
+If everyting goes well, your "src/" folder will contain the generated source code.
+
+## Testing
+Open your browser to http://127.0.0.1:8080/ 
+If wil get a webpage with the message "Welcome to Symfony 5.1.2"
 
 ## License
 
